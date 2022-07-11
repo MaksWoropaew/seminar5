@@ -1,30 +1,48 @@
-﻿
+﻿//Напишите программу, которая задаёт случайный массив случайного размера (от 5 до 10) элементов 
+//(значение элементов от 1 до 40) и выводит на экран массив квадратов этих чисел.
+
+//1, 2, 5, 7, 19 -> [2, 4, 25, 49, 361]
+
+//6, 1, 33 -> [36, 1, 1089]
 
 
-namespace Zadacha2
+namespace Zadacha3
 {
     class Program
     {
         static void Main(string[] args)
         {
-        Console.Write("Введите число N: ");
-        int numberN = Convert.ToInt32(Console.ReadLine());
-        int sumNumber = SumNumber(numberN);
-        Console.WriteLine("Сумма цифр в числе: " + sumNumber);
+            int[] array = FullRandomArrayGenerator();
+            ViewArray(array);
+            ViewArray(array, 2);  
         }
-        static int SumNumber(int numberN)
+        static void ViewArray(int[] array)
         {
-    
-        int count = Convert.ToString(numberN).Length;
-        int advance = 0;
-        int result = 0;
-        for (int i = 0; i < count; i++)
-        {
-            advance = numberN - numberN % 10;
-            result = result + (numberN - advance);
-            numberN = numberN / 10;
+            Console.Write("Массив: [");
+            for (int i = 0; i < array.Length-1; i++)
+            {
+                Console.Write("{0}, ", array[i]);
+            }
+            Console.WriteLine("{0}]", array.Last());
         }
-        return result;
+        static void ViewArray(int[] array, int degree)
+        {
+            Console.Write("Массив: [");
+            for (int i = 0; i < array.Length-1; i++)
+            {
+                Console.Write("{0}, ", Math.Pow(array[i], degree));
+            }
+            Console.WriteLine("{0}]", Math.Pow(array.Last(), degree));
+        }
+        static Random random = new Random();
+        static int[] FullRandomArrayGenerator()
+        {
+            int[] array = new int[random.Next(5,11)]; //[5, 10]
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = random.Next(40) + 1; //[1, 40]
+            }
+            return array;
         }
     }
 }
